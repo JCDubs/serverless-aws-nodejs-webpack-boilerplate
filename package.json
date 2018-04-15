@@ -1,0 +1,71 @@
+{
+  "name": "web-serverless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ENV=development LOG_LEVEL=info serverless offline",
+    "build": "LOG_DIRECTORY=/var/logs/my-stuff serverless webpack --out dist",
+    "test": "cross-env NODE_ENV=test nyc mocha 'test/**/*.spec.js' --require babel-polyfill --require babel-register --recursive"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.1.4",
+    "mocha": "^5.1.0",
+    "mocha-webpack": "^1.1.0",
+    "nyc": "^11.6.0",
+    "serverless-offline": "^3.20.2",
+    "serverless-s3-local": "^0.3.3",
+    "serverless-webpack": "^5.1.1",
+    "sinon": "^4.5.0",
+    "webpack": "^4.5.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.224.1",
+    "q": "^1.5.1",
+    "winston": "^2.4.1"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false,
+    "exclude": [
+      "src/core/logger.js",
+      "src/core/s3.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "watermarks": {
+      "lines": [80, 95],
+      "functions": [80, 95],
+      "branches": [80, 95],
+      "statements": [80, 95]
+    }
+  }
+}
