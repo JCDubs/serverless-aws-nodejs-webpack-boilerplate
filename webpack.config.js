@@ -16,7 +16,7 @@ if (process.env.ENV === 'development') {
         if (error) {
             console.log('Development bucket "'+bucketName+'" does not exist.')
             console.log('')
-            s3.createBucket({Bucket: bucketName}, (error, data) => {
+            devS3.createBucket({Bucket: bucketName}, (error, data) => {
                 if (error) {
                     console.log('Could not create the development bucket: '+bucketName+'')
                 } else {
